@@ -31,6 +31,14 @@ def buscar():
     lista_usuarios = [{'id': usuario[0], 'nome': usuario[1], 'telefone': usuario[2]} for usuario in usuarios]
     return jsonify(lista_usuarios)
 
+@app.route('/deletar/<id>', methods = ['DELETE'])
+def deletar(id):
+    query = "DELETE FROM usuarios WHERE idusuarios = %s"
+    cursor.execute(query, (id,))
+    db_config.commit()
+    return jsonify({'message': 'Usuário morto com sucesso!'})
+
+
 
 if __name__ == '__main__':
     app.run(port=5000, host='localhost', debug=True)
